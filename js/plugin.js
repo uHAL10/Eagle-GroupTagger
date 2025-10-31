@@ -16,8 +16,15 @@ eagle.onPluginRun(() => {
 	console.log('eagle.onPluginRun');
 });
 
-eagle.onPluginShow(() => {
+eagle.onPluginShow(async () => {
 	console.log('eagle.onPluginShow');
+
+	try {
+		const tagGroups = await eagle.tagGroup.get();
+		console.log('取得したタググループ: ', tagGroups);
+	} catch (error) {
+		console.error('タググループの取得に失敗しました:', error);
+	}
 });
 
 eagle.onPluginHide(() => {
