@@ -37,7 +37,7 @@ function App() {
                 {tagGroups.length > 0 ? (
                     <ul>
                         {tagGroups.map((group, index) => (
-                            <li key={index}>{JSON.stringify(group)}</li>
+                            <li key={index}>{group.name}</li>
                         ))}
                     </ul>
                 ) : (
