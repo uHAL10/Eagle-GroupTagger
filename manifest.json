@@ -1,0 +1,15 @@
+{
+    "id": "3085657d-2b21-4370-8636-f1d87107a9da",
+    "version": "1.0.0",
+    "platform": "all",
+    "arch": "all",
+    "name": "GroupTagger",
+    "logo": "/logo.png",
+    "keywords": [],
+    "devTools": false,
+    "main": {
+        "url": "index.html",
+        "width": 640,
+        "height": 480
+    }
+}
