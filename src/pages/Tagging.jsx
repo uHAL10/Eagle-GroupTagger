@@ -9,6 +9,7 @@ function Tagging() {
     const [tags, setTags] = useState([])
     const [filteredItems, setFilteredItems] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [history, setHistory] = useState([])
     const navigate = useNavigate()
     const { tagGroups } = useOutletContext()
 
@@ -25,7 +26,28 @@ function Tagging() {
         }
         await currentItem.save()
 
+        setHistory([...history, {item: currentItem, added_tag: tag}])
+
         setCurrentIndex(currentIndex + 1)
+    }
+
+    const handleUndoClick = async () => {
+        if (history.length == 0 || currentIndex == 0) return
+
+        const newHistory = history.slice(0, -1)
+        const lastOperation = history[history.length - 1]
+
+        const prevIndex = currentIndex - 1
+        const prevItem = filteredItems[prevIndex]
+        
+        const index = prevItem.tags.indexOf(lastOperation.added_tag)
+        if (index > -1) {
+            prevItem.tags.splice(index, 1)
+        }
+        await prevItem.save()
+        
+        setHistory(newHistory)
+        setCurrentIndex(currentIndex - 1)
     }
 
     useEffect(() => {
@@ -80,6 +102,14 @@ function Tagging() {
                 ))}
                 <button onClick={() => setCurrentIndex(currentIndex + 1)}>skip</button>
             </p>
+            <div>
+                <button
+                    onClick={() => handleUndoClick()}
+                    disabled={history.length == 0 || currentIndex == 0}
+                >
+                    undo
+                </button>
+            </div>
         </div>
     )
 }
