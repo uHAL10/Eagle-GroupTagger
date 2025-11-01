@@ -62,12 +62,17 @@ function Tagging() {
         <div>
             <button onClick={handleClick}>Home</button>
 
-            {filteredItems.length > 0 && (
+            {filteredItems.length > 0 ? (
                 <div>
                     <img src={filteredItems[currentIndex].fileURL} className='tagging-image' />
                     <p>progress: {currentIndex + 1} / {filteredItems.length}</p>
                 </div>
-            )}
+            ): (
+                <div>
+                    <p>completed.</p>
+                </div>
+            )
+            }
 
             <p>
                 {tags.map((tag, _index) => (
