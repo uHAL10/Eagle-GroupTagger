@@ -13,11 +13,32 @@ function Tagging() {
     }
 
     useEffect(() => {
-        const fetchTags = async () => {
-            const targetGroup = tagGroups.find(g => g.id === groupId)
-            setTags(targetGroup.tags)
+        const run = async () => {
+            const fetchTags = async () => {
+                const targetGroup = tagGroups.find(g => g.id === groupId)
+                return targetGroup.tags
+            }
+    
+            const fetchItems = async () => {
+                let items = await eagle.item.getAll()
+                let filteredItems = items.filter(item => {
+                    console.log('item.name', item.name)
+                    console.log('item.tags:', item.tags)
+                    const hasCommonTag = item.tags.some(t => tagsInGroup.includes(t))
+                    
+                    return !hasCommonTag
+                })
+                return filteredItems
+            }
+    
+            let tagsInGroup = await fetchTags()
+            console.log('tagsInGroup:', tagsInGroup)
+            let items = await fetchItems()
+            console.log('items:', items)
+    
+            setTags(tagsInGroup)
         }
-        fetchTags()
+        run()
     }, [groupId])
 
     return (
