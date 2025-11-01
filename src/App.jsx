@@ -11,8 +11,8 @@ function App() {
             setPlugin(pluginInfo)
         })
 
-        eagle.onPluginShow(async () => {
-            console.log('eagle.onPluginShow')
+        eagle.onPluginRun(async () => {
+            console.log('eagle.onPluginRun')
             try {
                 const groups = await eagle.tagGroup.get()
                 console.log('取得したタググループ: ', groups)
