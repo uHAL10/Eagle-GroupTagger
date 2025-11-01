@@ -33,8 +33,8 @@ function Tagging() {
     
             let tagsInGroup = await fetchTags()
             console.log('tagsInGroup:', tagsInGroup)
-            let items = await fetchItems()
-            console.log('items:', items)
+            let filteredItems = await fetchItems()
+            console.log('filteredItems:', filteredItems)
     
             setTags(tagsInGroup)
         }
