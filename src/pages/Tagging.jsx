@@ -78,6 +78,7 @@ function Tagging() {
                 {tags.map((tag, _index) => (
                     <button onClick={() => handleTagClick(tag)}>{tag}</button>
                 ))}
+                <button onClick={() => setCurrentIndex(currentIndex + 1)}>skip</button>
             </p>
         </div>
     )
