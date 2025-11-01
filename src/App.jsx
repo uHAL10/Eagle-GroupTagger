@@ -1,51 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { Outlet } from 'react-router-dom'
 
 function App() {
-    const [plugin, setPlugin] = useState(null)
     const [tagGroups, setTagGroups] = useState([])
 
     useEffect(() => {
-        eagle.onPluginCreate((pluginInfo) => {
-            console.log('eagle.onPluginCreate')
-            console.log(pluginInfo)
-            setPlugin(pluginInfo)
+        const fetchGroups = async () => {
+            const groups = await eagle.tagGroup.get()
+            setTagGroups(groups)
+        }
+        
+        eagle.onPluginRun(() => {
+            fetchGroups()
         })
-
-        eagle.onPluginRun(async () => {
-            console.log('eagle.onPluginRun')
-            try {
-                const groups = await eagle.tagGroup.get()
-                console.log('取得したタググループ: ', groups)
-                setTagGroups(groups)
-            } catch (error) {
-                console.error('タググループの取得に失敗しました: ', error)
-            }
-        })
-
-        eagle.onPluginHide(() => {
-            console.log('eagle.onPluginHide')
-        })
-
     }, [])
 
-    return (
-        <div>
-            <h1>GroupTagger</h1>
-
-            <div>
-                <h2>タググループ</h2>
-                {tagGroups.length > 0 ? (
-                    <ul>
-                        {tagGroups.map((group, index) => (
-                            <li key={index}>{group.name}</li>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>タググループがありません</p>
-                )}
-            </div>
-        </div>
-    )
+    return <Outlet context={{ tagGroups, setTagGroups }}/>
 }
 
 export default App
