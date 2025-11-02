@@ -1,5 +1,5 @@
 import { useOutletContext, useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import './Tagging.css'
@@ -60,6 +60,27 @@ function Tagging() {
         setCurrentIndex(currentIndex - 1)
     }
 
+    const handleKeyDown = useCallback((e) => {
+        // 数字キー（1-9）でタグを追加
+        if (e.key >= '1' && e.key <= '9') {
+            const tagIndex = parseInt(e.key) - 1
+            if (tagIndex < tags.length && filteredItems.length > 0) {
+                e.preventDefault()
+                handleTagClick(tags[tagIndex])
+            }
+        }
+        // ']' キーでスキップ
+        else if (e.key.toLowerCase() === ']' && filteredItems.length > 0) {
+            e.preventDefault()
+            handleSkipClick()
+        }
+        // '[' キーでアンドゥ
+        else if (e.key.toLowerCase() === '[') {
+            e.preventDefault()
+            handleUndoClick()
+        }
+    }, [tags, filteredItems, history, currentIndex, handleTagClick, handleSkipClick, handleUndoClick, handleClick])
+
     const getOffsetImgURL = (offset) => {
         if (currentIndex + offset < 0) return
         return filteredItems[currentIndex + offset].thumbnailURL
@@ -100,6 +121,15 @@ function Tagging() {
         run()
     }, [groupId])
 
+    useEffect(() => {
+        // キーボードイベントリスナーを登録
+        window.addEventListener('keydown', handleKeyDown)
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [handleKeyDown])
+
     return (
         <div>
             <button onClick={handleClick}>Home</button>
@@ -135,17 +165,19 @@ function Tagging() {
             }
 
             <p>
-                {tags.map((tag, _index) => (
-                    <button onClick={() => handleTagClick(tag)}>{tag}</button>
+                {tags.map((tag, index) => (
+                    <button key={tag} onClick={() => handleTagClick(tag)}>
+                        {tag} ({index + 1})
+                    </button>
                 ))}
-                <button onClick={() => handleSkipClick()}>skip</button>
+                <button onClick={() => handleSkipClick()}>skip (])</button>
             </p>
             <div>
                 <button
                     onClick={() => handleUndoClick()}
                     disabled={history.length == 0 || currentIndex == 0}
                 >
-                    undo
+                    undo ([)
                 </button>
             </div>
         </div>
