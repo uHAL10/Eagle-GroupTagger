@@ -31,6 +31,12 @@ function Tagging() {
         setCurrentIndex(currentIndex + 1)
     }
 
+    const handleSkipClick = () => {
+        const currentItem = filteredItems[currentIndex]
+        setHistory([...history, {item: currentItem, added_tag: 'skip'}])
+        setCurrentIndex(currentIndex + 1)
+    }
+
     const handleUndoClick = async () => {
         if (history.length == 0 || currentIndex == 0) return
 
@@ -38,13 +44,17 @@ function Tagging() {
         const lastOperation = history[history.length - 1]
 
         const prevIndex = currentIndex - 1
-        const prevItem = filteredItems[prevIndex]
-        
-        const index = prevItem.tags.indexOf(lastOperation.added_tag)
-        if (index > -1) {
-            prevItem.tags.splice(index, 1)
+        const prevItem = filteredItems[prevIndex] 
+
+        if (lastOperation.added_tag != 'skip') {
+            const index = prevItem.tags.indexOf(lastOperation.added_tag)
+            if (index > -1) {
+                prevItem.tags.splice(index, 1)
+            }
+            await prevItem.save()
+        } else {
+            // do nothing
         }
-        await prevItem.save()
         
         setHistory(newHistory)
         setCurrentIndex(currentIndex - 1)
@@ -128,7 +138,7 @@ function Tagging() {
                 {tags.map((tag, _index) => (
                     <button onClick={() => handleTagClick(tag)}>{tag}</button>
                 ))}
-                <button onClick={() => setCurrentIndex(currentIndex + 1)}>skip</button>
+                <button onClick={() => handleSkipClick()}>skip</button>
             </p>
             <div>
                 <button
