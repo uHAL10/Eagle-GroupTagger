@@ -10,6 +10,7 @@
     "main": {
         "url": "dist/index.html",
         "width": 640,
-        "height": 480
+        "height": 480,
+        "alwaysOnTop": true
     }
 }
