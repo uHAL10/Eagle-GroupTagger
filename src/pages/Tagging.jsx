@@ -52,7 +52,7 @@ function Tagging() {
 
     const getOffsetImgURL = (offset) => {
         if (currentIndex + offset < 0) return
-        return filteredItems[currentIndex + offset].fileURL
+        return filteredItems[currentIndex + offset].thumbnailURL
     }
 
     const getPrevTag = (offset) => {
@@ -106,7 +106,7 @@ function Tagging() {
                             <div>{getPrevTag(1)}</div>
                         </div>
                         <div className='image-container'>
-                            <img src={filteredItems[currentIndex].fileURL} className='tagging-image' />
+                            <img src={filteredItems[currentIndex].thumbnailURL} className='tagging-image' />
                         </div>
                         <div className='image-container'>
                             <img src={getOffsetImgURL(1)} className='small-image' />
