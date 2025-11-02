@@ -1,12 +1,30 @@
+.gallerry-wrapper {
+    width: 100vw;
+    overflow: hidden;
+}
+
 .image-gallery {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    width: 100vw;
+    gap: 0;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    box-sizing: border-box;
 }
 
-.image-container {
+.image-container-small {
+    width: clamp(100px, 20vw, 1000px);
+    height: clamp(100px, 20vw, 1000px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+
+.image-container-large {
     width: clamp(100px, 20vw, 1000px);
     height: clamp(100px, 20vw, 1000px);
     display: flex;

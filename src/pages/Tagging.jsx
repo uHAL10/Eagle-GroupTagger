@@ -135,23 +135,23 @@ function Tagging() {
             <button onClick={handleClick}>Home</button>
 
                         {filteredItems.length > 0 ? (
-                <div>
+                <div className='gallery-wrapper'>
                     <div className='image-gallery'>
-                        <div className='image-container'>
+                        <div className='image-container-small'>
                             <img src={getOffsetImgURL(-2)} className='small-image' />
                             <div>{getPrevTag(2)}</div>
                         </div>
-                        <div className='image-container'>
+                        <div className='image-container-small'>
                             <img src={getOffsetImgURL(-1)} className='small-image' />
                             <div>{getPrevTag(1)}</div>
                         </div>
-                        <div className='image-container'>
+                        <div className='image-container-large'>
                             <img src={filteredItems[currentIndex].thumbnailURL} className='tagging-image' />
                         </div>
-                        <div className='image-container'>
+                        <div className='image-container-small'>
                             <img src={getOffsetImgURL(1)} className='small-image' />
                         </div>
-                        <div className='image-container'>
+                        <div className='image-container-small'>
                             <img src={getOffsetImgURL(2)} className='small-image' />
                         </div>
                     </div>
