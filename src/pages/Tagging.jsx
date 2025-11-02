@@ -55,6 +55,11 @@ function Tagging() {
         return filteredItems[currentIndex + offset].fileURL
     }
 
+    const getPrevTag = (offset) => {
+        if (history.length - offset < 0) return
+        return history[history.length - offset].added_tag
+    }
+
     useEffect(() => {
         const run = async () => {
             const fetchTags = async () => {
@@ -94,9 +99,11 @@ function Tagging() {
                     <div className='image-gallery'>
                         <div className='image-container'>
                             <img src={getOffsetImgURL(-2)} className='small-image' />
+                            <div>{getPrevTag(2)}</div>
                         </div>
                         <div className='image-container'>
                             <img src={getOffsetImgURL(-1)} className='small-image' />
+                            <div>{getPrevTag(1)}</div>
                         </div>
                         <div className='image-container'>
                             <img src={filteredItems[currentIndex].fileURL} className='tagging-image' />
