@@ -50,6 +50,11 @@ function Tagging() {
         setCurrentIndex(currentIndex - 1)
     }
 
+    const getOffsetImgURL = (offset) => {
+        if (currentIndex + offset < 0) return
+        return filteredItems[currentIndex + offset].fileURL
+    }
+
     useEffect(() => {
         const run = async () => {
             const fetchTags = async () => {
@@ -84,9 +89,25 @@ function Tagging() {
         <div>
             <button onClick={handleClick}>Home</button>
 
-            {filteredItems.length > 0 ? (
+                        {filteredItems.length > 0 ? (
                 <div>
-                    <img src={filteredItems[currentIndex].fileURL} className='tagging-image' />
+                    <div className='image-gallery'>
+                        <div className='image-container'>
+                            <img src={getOffsetImgURL(-2)} className='small-image' />
+                        </div>
+                        <div className='image-container'>
+                            <img src={getOffsetImgURL(-1)} className='small-image' />
+                        </div>
+                        <div className='image-container'>
+                            <img src={filteredItems[currentIndex].fileURL} className='tagging-image' />
+                        </div>
+                        <div className='image-container'>
+                            <img src={getOffsetImgURL(1)} className='small-image' />
+                        </div>
+                        <div className='image-container'>
+                            <img src={getOffsetImgURL(2)} className='small-image' />
+                        </div>
+                    </div>
                     <p>progress: {currentIndex + 1} / {filteredItems.length}</p>
                 </div>
             ): (
