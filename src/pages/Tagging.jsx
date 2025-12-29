@@ -131,53 +131,71 @@ function Tagging() {
     }, [handleKeyDown])
 
     return (
-        <div>
-            <button onClick={handleClick}>Home</button>
+        <div className="tagging-container">
+            <div className="tagging-header">
+                <button className="home-button" onClick={handleClick}>
+                    ← Back to Home
+                </button>
+            </div>
 
-                        {filteredItems.length > 0 ? (
+            {filteredItems.length > 0 ? (
                 <div className='gallery-wrapper'>
                     <div className='image-gallery'>
                         <div className='image-container-small'>
-                            <img src={getOffsetImgURL(-2)} className='small-image' />
-                            <div>{getPrevTag(2)}</div>
+                            {getOffsetImgURL(-2) && (
+                                <>
+                                    <img src={getOffsetImgURL(-2)} className='small-image' alt="previous-2" />
+                                    {getPrevTag(2) && <div className="tag-label">{getPrevTag(2)}</div>}
+                                </>
+                            )}
                         </div>
                         <div className='image-container-small'>
-                            <img src={getOffsetImgURL(-1)} className='small-image' />
-                            <div>{getPrevTag(1)}</div>
+                            {getOffsetImgURL(-1) && (
+                                <>
+                                    <img src={getOffsetImgURL(-1)} className='small-image' alt="previous-1" />
+                                    {getPrevTag(1) && <div className="tag-label">{getPrevTag(1)}</div>}
+                                </>
+                            )}
                         </div>
                         <div className='image-container-large'>
-                            <img src={filteredItems[currentIndex].thumbnailURL} className='tagging-image' />
+                            <img src={filteredItems[currentIndex].thumbnailURL} className='tagging-image' alt="current" />
                         </div>
                         <div className='image-container-small'>
-                            <img src={getOffsetImgURL(1)} className='small-image' />
+                            {getOffsetImgURL(1) && <img src={getOffsetImgURL(1)} className='small-image' alt="next-1" />}
                         </div>
                         <div className='image-container-small'>
-                            <img src={getOffsetImgURL(2)} className='small-image' />
+                            {getOffsetImgURL(2) && <img src={getOffsetImgURL(2)} className='small-image' alt="next-2" />}
                         </div>
                     </div>
-                    <p>progress: {currentIndex + 1} / {filteredItems.length}</p>
+                    <div className='progress-info'>
+                        Progress: {currentIndex + 1} / {filteredItems.length}
+                    </div>
                 </div>
-            ): (
-                <div>
-                    <p>completed.</p>
+            ) : (
+                <div className="completed-container">
+                    <div className="completed-icon">🎉</div>
+                    <p>Done.</p>
                 </div>
-            )
-            }
+            )}
 
-            <p>
+            <div className="tag-buttons-container">
                 {tags.map((tag, index) => (
-                    <button key={tag} onClick={() => handleTagClick(tag)}>
+                    <button key={tag} className="tag-button" onClick={() => handleTagClick(tag)}>
                         {tag} ({index + 1})
                     </button>
                 ))}
-                <button onClick={() => handleSkipClick()}>skip (])</button>
-            </p>
-            <div>
+            </div>
+
+            <div className="control-buttons">
                 <button
+                    className="undo-button"
                     onClick={() => handleUndoClick()}
                     disabled={history.length == 0 || currentIndex == 0}
                 >
-                    undo ([)
+                    ↶ Undo ( [ )
+                </button>
+                <button className="skip-button" onClick={() => handleSkipClick()}>
+                    Skip ( ] )
                 </button>
             </div>
         </div>

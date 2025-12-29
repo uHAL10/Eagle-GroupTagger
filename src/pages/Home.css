@@ -1,0 +1,95 @@
+/* Home Page Container */
+.home-container {
+    min-height: 100vh;
+    background: white;
+    padding: 1rem 1rem;
+    box-sizing: border-box;
+}
+
+/* Header Section */
+.home-header {
+    text-align: left;
+}
+
+.home-title {
+    font-size: 2rem;
+    font-weight: 400;
+    color: black;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+}
+
+/* Tag Groups Section */
+.tag-groups-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 1rem;
+    font-weight: 400;
+    color: black;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.tag-groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.group-card {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.group-card:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.group-card:active {
+    transform: translateY(-2px);
+}
+
+.group-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.empty-message {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

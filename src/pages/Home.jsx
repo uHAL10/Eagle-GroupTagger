@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useOutletContext } from 'react-router-dom'
+import './Home.css'
 
 function Home() {
     const {tagGroups } = useOutletContext()
@@ -14,21 +15,28 @@ function Home() {
     }, [])
 
     return (
-        <div>
-            <h1>GroupTagger</h1>
+        <div className="home-container">
+            <div className="home-header">
+                <h1 className="home-title">GroupTagger</h1>
+            </div>
 
-            <div>
-                <h2>タググループ</h2>
+            <div className="tag-groups-section">
+                <h2 className="section-title">Tag groups</h2>
                 {tagGroups.length > 0 ? (
-                    <ul>
-                        {tagGroups.map((group, index) => (
-                            <button onClick={() => handleClick(group.id)}>
-                                {group.name}
-                            </button>
+                    <ul className="tag-groups-grid">
+                        {tagGroups.map((group, _index) => (
+                            <li key={group.id}>
+                                <div className="group-card" onClick={() => handleClick(group.id)}>
+                                    <h3 className="group-name">{group.name}</h3>
+                                </div>
+                            </li>
                         ))}
                     </ul>
                 ) : (
-                    <p>タググループがありません</p>
+                    <div className="empty-state">
+                        <div className="empty-icon">📭</div>
+                        <p className="empty-message">タググループがありません</p>
+                    </div>
                 )}
             </div>
         </div>
